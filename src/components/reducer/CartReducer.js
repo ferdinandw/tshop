@@ -5,9 +5,6 @@ import Item4 from './../img/fb.png'
 import Item5 from './../img/bri.png'
 import Item6 from './../img/line.png'
 import { ADD_TO_CART} from './../actioncreators/cart'
-import axios from 'axios'
-import React,{useEffect} from 'react'
-
 
 const initState = {
     items: [
