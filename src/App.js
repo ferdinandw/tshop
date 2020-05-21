@@ -3,22 +3,21 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/navbar/Navbar";
 // import Searches from './components/searchFilter/Searches'
-import Category from "./components/category/Category";
 import Carousel from "./components/carousel/Carousel";
 import Cart from "./components/cart/Cart";
+import Detail from './components/detail/detail'
 import Footer from "./components/footer/Footer";
-import Home from "./components/home/Home";
 import ItemSell from "./components/ItemSelling/ItemSell";
 import Login from "./components/login/Login2";
 import MiniCarousel from "./components/carousel/MiniCarousel";
 import Register from "./components/register/Register";
-import cartReducer from "./components/reducer/CartReducer";
+import ScrollTop from './components/scrollTop'
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/authToken";
 import store from "./store/store";
 import { setCurrentUser, logoutUser } from "./components/actioncreators/auth";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import localforage from 'localforage'
 // import TesSearch from "./components/searchFilter/TesSearch";
 import Item from "./components/reducer/item";
 // Check for token to keep user logged in
@@ -39,42 +38,52 @@ if (localStorage.jwtToken) {
     window.location.href = "./signin";
   }
 }
+try {
+  const fun = async () => {
+    console.log('halo');
+    const val = await localforage.getItem('keranjang');
+    window.dataKeranjang = val;
+  }
+  fun()
 
-// const storage = createStore(cartReducer);
+}catch{
+  console.error('belum bisa pakai localforage')
+}
+
+// const storage = createStore(cartReducer , applyMiddleware(thunk));
 class App extends Component {
   render() {
     return (
       <Router>
+        <ScrollTop>
         <Provider store={store}>
           <Navbar />
           {/* <TesSearch /> */}
           <Switch>
             <Route path="/login">
               <Login />
-              {/* <Category /> */}
             </Route>
             <Route path="/register">
               <Register />
-              {/* <Category /> */}
             </Route>
             <Route path="/seller">
               <ItemSell />
-              <Category />
             </Route>
             <Route path="/cart">
               <Cart />
-              <Category />
+            </Route>
+            <Route path="/item/:id">
+              <Detail />
             </Route>
             <Route path="/">
               <Carousel />
               <MiniCarousel />
-              {/* <Home /> */}
               <Item />
-              <Category />
             </Route>
           </Switch>
           <Footer />
         </Provider>
+        </ScrollTop>
       </Router>
     );
   }

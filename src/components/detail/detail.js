@@ -1,83 +1,76 @@
-import React,{useState, useEffect} from 'react'
-import {Button,Modal} from 'react-bootstrap'
-// import { connect } from 'react-redux'
-// import {addToCart} from './../actioncreators/cart'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import {Container, Row, Col, Image } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import NumberFormat from 'react-number-format'
+import axios from "axios";
+import "./detail.css";
 
-const Detail = (props) => {
+const Detail = () => {
+  const { id } = useParams();
   const [data, setData] = useState([]);
-  const testfun = ((id) =>{
-    axios.get(`https://api.juliaveronica.com/item/show/${id}`).then((res) => {
-      console.log(res.data);
-      setData(res.data);
-    });
-  }, []);
-  useEffect((id) => {
-    axios.get(`https://api.juliaveronica.com/item/show`).then((res) => {
-      console.log(res.data);
-      setData(res.data);
-    });
-  }, []);
-  // const testimage = "https://i.imgur.com/tq4h23x.jpg"
 
-    const [show, setShow] = useState(false);
-  
-    const handleClose = () => setShow(false);
-    const handleShow = (id) => {
-      setShow(true)
-    };
-    const handleClick = (id) =>{
-      // props.addToCart(id);
-      setShow(false)
-    }
-    const showDetail = data.map((data, id) => {
-      const URL = "http://3.136.102.205/";
-      return(
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>{data.name}</Modal.Title>
-          </Modal.Header>
-            <Modal.Body>
-            <img key={id}
-            src={`${URL}${data.imageUrl}`}
-            alt="Gambar"
-            style={{ height: "45%", width: "100%", marginBottom: "5%" }}
+  useEffect(() => {
+    axios.get(`https://api.juliaveronica.com/item/show/${id}`).then((res) => {
+      const data = res.data;
+      setData(data);
+    });
+  }, [id]);
+  const testimage = "https://i.imgur.com/tq4h23x.jpg";
+  const showDetail = [data].map((item, index) => {
+    // const URL = "http://3.136.102.205/";
+    return (
+      <Container className="dark-grey-text mt-5 pt-4" fluid>
+          <Row key={index}>
+            <Col md={6} mb={4} className="d-flex justify-content-center">
+            <Image
+              // src={`${URL}${item.imageUrl}`}
+              src={testimage}
+              alt="Gambar"
+              // style={{height: "400px", justifyContent: "center"}}
+              fluid
             />
-            <h4>{data.name}</h4>
-            <h5>{data.price}</h5>
-            <h6>{data.quantity}</h6>
-            </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClick}>
-              Add to Cart
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        
+            </Col>
+            <Col md={6} mb={4} className="flex flex-row">
+              <div className="p-4">
+                <h2 className="mb-3">{data.name}</h2>
+                <p className="lead"><NumberFormat value={data.price} displayType="text" thousandSeparator={true} prefix={'Rp '}/></p>
+                <h6 className="text-muted">Remaining Stock : {data.quantity}</h6>
+                <p className="lead font-weight-bold">Description</p>
+                <p>{data.description}</p>
+                <div className="d-flex justify-content-left">
+                  <button className="mr-4 btn btn-outline-light btn-secondary">Add To Cart</button>
+                  <button className="btn btn-primary btn-lg my-0 p">Buy Now</button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <hr/>
+          <Row>
+            <div class="col-md-6 text-center">
+              <h4 class="my-4 h4">Additional information</h4>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+                voluptates,
+                quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-12 mb-4">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt=""/>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt=""/>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt=""/>
+              </div>
+            </div>
+          </Row>
+        </Container>
       )
     })
     return (
-      <>
-        <Button variant="primary" onClick={handleShow}>
-          More Info
-        </Button>
+      <div>
         {showDetail}
-      </>
+      </div>
     );
-}
-// const mapStateToProps = (state)=>{
-//   return {
-//     items: state.items
-//   }
-// }
-// const mapDispatchToProps= (dispatch)=>{
-    
-//   return{
-//       addToCart: (id)=>{dispatch(addToCart(id))}
-//   }
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(Detail)
-export default Detail
+  }
+export default Detail;

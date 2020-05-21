@@ -1,52 +1,59 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Detail from "./../detail/detail";
-import { addToCart } from "./../actioncreators/cart";
-import {connect} from 'react-redux'
+import { beli } from "./../actioncreators/cart";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./item.css";
+import Cartt from './../cart/Test'
+import NumberFormat from 'react-number-format'
 const Test = (props) => {
-
   const [data, setData] = useState([]);
   useEffect(() => {
     axios.get("https://api.juliaveronica.com/item/show").then((res) => {
       console.log(res.data);
-      setData(res.data);
+      const data = res.data
+      setData(data);
     });
   }, []);
-  const handleClick = (id) => {
-    props.addToCart(id);
-  };
-  // const testimage = "https://i.imgur.com/tq4h23x.jpg";
+  const testimage = "https://i.imgur.com/tq4h23x.jpg";
 
-  const showData = data.map((data, id) => {
-    const URL = "http://3.136.102.205/";
+
+  const showData = data.map((item, index) => {
+    // const URL = "http://3.136.102.205/";
     return (
-      <div className="col-md-3 col-sm-12 my-2 ">
-        <div className="card" key={id}>
+      <div className="col-lg-3 col-md-6 mb-4">
+        <div className="card item" key={index}>
+          <div>
           <img
-            src={`${URL}${data.imageUrl}`}
-            alt={data.name}
+            // src={`${URL}${item.imageUrl}`}
+            src={testimage}
+            alt={item.name}
             className="card-img-top"
+            // style={{ height: "200px", width: "100%" }}
           />
-          <h4 className="card-title">{data.name}</h4>
-          <div className="card-content">
-            <p>{data.description}</p>
+          </div>
+          <div className="card-body">
+          <h4>{item.name}</h4>
+            <p>Remaining Stock : {item.quantity}</p>
             <p>
-              <b>Price: Rp {data.price}</b>
+              <NumberFormat value={item.price} displayType="text" thousandSeparator={true} prefix={'Rp '}/>
             </p>
           </div>
-          <br />
-          <Detail />
-          <button to="/" className="btn btn-outline-dark" onClick={handleClick}>
-            <Link to="/cart">Add Item</Link>
-          </button>
+          <div className="card-footer d-flex flex-row justify-content-center item">
+              <Link
+                className="btn btn-primary mr-4"
+                to={`/item/${item.id}`}
+              >
+                Detail
+              </Link>
+              <Cartt key={item.id} cart={item}/>
+          </div>
         </div>
       </div>
     );
   });
   return (
-    <div className="container pt-4">
+    <div className="container pt-4 mb-4">
       <h3 className="text-center">Our Items</h3>
       <hr className="hr mb-4" />
       <div className="row">{showData}</div>
@@ -55,68 +62,8 @@ const Test = (props) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (id) => {
-      dispatch(addToCart(id));
-    }
+    beli
   };
 };
 
-export default connect(null,mapDispatchToProps)(Test);
-
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-
-// const Test = () => {
-//   const [data, setData] = useState([]);
-//   useEffect(() => {
-//     axios.get("https://api.juliaveronica.com/item/show").then((res) => {
-//       console.log(res.data);
-//       setData(res.data);
-//     });
-//   }, []);
-
-//   const showData = data.map((data, id) => {
-//     const URL = "http://3.136.102.205/";
-//     console.log(data);
-//     return (
-//       <tr key={id}>
-//         {/* <td>{data.id}</td> */}
-//         <td>
-//           <img
-//             src={`${URL}${data.imageUrl}`}
-//             alt=""
-//             style={{ width: "100px" }}
-//           />
-//         </td>
-//         <td>{data.name}</td>
-//         <td>{data.price}</td>
-//         <td>{data.description}</td>
-//         <td>{data.quantity}</td>
-//         <td>{data.category.name}</td>
-//       </tr>
-//     );
-//   });
-//   return (
-//     <div>
-//       <table
-//         className="table table-dark table-striped table-hover justify-content-center"
-//         style={{ width: "70%" }}
-//       >
-//         <thead>
-//           <tr>
-//             {/* <th scope="col">ID</th> */}
-//             <th scope="col">Image</th>
-//             <th scope="col">Name</th>
-//             <th scope="col">Price</th>
-//             <th scope="col">Description</th>
-//             <th scope="col">quantity</th>
-//             <th scope="col">categoryId</th>
-//           </tr>
-//         </thead>
-//         <tbody>{showData}</tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default Test;
+export default connect(null, mapDispatchToProps)(Test);

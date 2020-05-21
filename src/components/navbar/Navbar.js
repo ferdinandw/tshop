@@ -14,6 +14,7 @@ const Navbar2 = () => {
           style={{ width: "auto", height: "50px" }}
         />
       </Link>
+      <span>
       <form className="form-inline my-2 my-lg-0">
         <input
           class="form-control mr-sm-2"
@@ -25,6 +26,7 @@ const Navbar2 = () => {
           <i class="fas fa-search"></i>
         </ButtonContainer>
       </form>
+      </span>
       <div>
         <ButtonContainer className="mr-4">
           <Link to="/cart">
@@ -36,16 +38,14 @@ const Navbar2 = () => {
             <FaDollarSign />
           </Link>
         </ButtonContainer>
-        <button className="btn btn-outline-dark">
-          <Link to="/login">Login</Link>
-        </button>
+        <Link className="btn btn-primary" to="/login">Login</Link>
       </div>
     </NavWrapper>
   );
 };
 
 const NavWrapper = styled.nav`
-  background: #8d8d8d;
+  background: rgba(0, 17, 107, 0.7);
   .nav-link {
     color: var(--mainWhite) !important;
     font-size: 1.3rem;
