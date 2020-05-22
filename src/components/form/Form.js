@@ -35,8 +35,11 @@ const Tabel = (props) => {
           </div>
       </div>
       </div>
-      <div className="row" >
-        
+      <div className="row">
+      <div className="col-md-6 mb-2">
+        <Label for="examplePassword">Zipcode</Label>
+          <Input type="number" name="input" id="input" placeholder="Zipcodes" />
+      </div>
       </div>
       <div className="row">
         <div className="col-md-6 mb-2">
@@ -44,12 +47,7 @@ const Tabel = (props) => {
           <Input type="textarea" name="text" id="exampleText" />
         </div>
       </div>
-      <div className="row">
-      <div className="col-md-6 mb-2">
-        <Label for="examplePassword">Zipcode</Label>
-          <Input type="number" name="input" id="input" placeholder="Zipcodes" />
-      </div>
-      </div>
+      
       <div className="row mt-4">
         <div className="col-md-6">
         <FormGroup check>
