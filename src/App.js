@@ -65,6 +65,7 @@ class App extends Component {
               <Navbar />
             </div>
             <div>
+              <Switch>
               {/* <TesSearch /> */}
               <Route path="/login">
                 <Login />
@@ -90,10 +91,9 @@ class App extends Component {
                 <MiniCarousel />
                 <Item />
               </Route>
+              </Switch>
             </div>
-            <Switch>
-              <PrivateRoute exact path="/details/detail/:id" component={Item} />
-            </Switch>
+              {/* <PrivateRoute exact path="/details/detail/:id" component={Item} /> */}
             <Footer />
           </ScrollTop>
         </Router>
