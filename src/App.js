@@ -85,13 +85,13 @@ class App extends Component {
               <Route path="/cart">
                 <Cart />
               </Route>
-              {/* <Route path="/item/:id">
+              <Route path="/item/:id">
                 <Detail />
-              </Route> */}
+              </Route>
               <Route path="/">
                 <Carousel />
                 <MiniCarousel />
-                {/* <Item /> */}
+                <Item />
               </Route>
               </Switch>
             </div>
