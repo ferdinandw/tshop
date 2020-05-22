@@ -89,7 +89,7 @@ class App extends Component {
               <Route path="/">
                 <Carousel />
                 <MiniCarousel />
-                <Item />
+                {/* <Item /> */}
               </Route>
               </Switch>
             </div>
