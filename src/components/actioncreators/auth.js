@@ -16,7 +16,7 @@ export const loginUser = (userData) => (dispatch) => {
     .post(`${"https://api.juliaveronica.com/users/login"}`, userData)
     .then((res) => {
       // Save to localStorage Set token to localStorage
-      const token = res.data;
+      const token = res.data.token;
       console.log(res);
 
       localStorage.setItem("jwtToken", token);
