@@ -13,8 +13,7 @@ const Test = () => {
       .get("https://api.juliaveronica.com/item/show/", {
         headers: {
           // x-access-token (backend), jwtToken(key application localstorage(chrome)). 
-          // "x-access-token": localStorage.getItem("jwtToken"),
-          "x-access-token": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkwMTYyMTk5LCJleHAiOjE2MjE2OTgxOTl9.jeiRgjNcZwvPfhK8pmjQkCT_WM3YUwCemU6rWDaKL48,
+          "x-access-token": localStorage.getItem("jwtToken"),
           "Content-Type": "multipart/form-data",
         },
       })
