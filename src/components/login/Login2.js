@@ -101,7 +101,7 @@ class Login extends Component {
                                                 invalid: errors.password || errors.passwordincorrect
                                             })}/>
                                         </div>
-                                        <h6>Don't have an account? <Link to="/register">Sign Up here</Link></h6>
+                                        <h6>Don't have an account?<Link to="/register">Sign Up here</Link></h6>
                                         <div style={{margin:20}} className="text-center pt-4">
                                             <button type="submit" className="btn btn-outline-dark">Login</button>
                                         </div>
