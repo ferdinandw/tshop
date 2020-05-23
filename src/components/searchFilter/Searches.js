@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
-import axios from 'axios';
-import './search.css';
+import axios from "axios";
+import "./search.css";
 
 import {
   Button,
@@ -9,18 +9,17 @@ import {
   CardBody,
   CardImage,
   CardTitle,
-  CardText
+  CardText,
 } from "mdbreact";
-
 
 import categoriesList from "./categories.json";
 
 class Searches extends Component {
   state = {
-    search: ""
+    search: "",
   };
 
-  renderCategory = category => {
+  renderCategory = (category) => {
     const { search } = this.state;
     var id = category.id.toLowerCase();
 
@@ -49,17 +48,16 @@ class Searches extends Component {
     );
   };
 
-  onchange = e => {
+  onchange = (e) => {
     this.setState({ search: e.target.value });
   };
 
   render() {
     const { search } = this.state;
-    const filteredCategories = categoriesList.filter(category => {
+    const filteredCategories = categoriesList.filter((category) => {
       return category.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     });
 
-    
     return (
       <div className="flyout">
         <main style={{ marginTop: "4rem" }}>
@@ -68,12 +66,7 @@ class Searches extends Component {
               <div className="col-12">
                 <center>
                   <h3>
-                    <a
-                      href=""
-                      target="_blank"
-                    >
-                      
-                    </a>
+                    <a href="" target="_blank"></a>
                   </h3>
                 </center>
               </div>
@@ -87,7 +80,7 @@ class Searches extends Component {
               <div className="col" />
             </div>
             <div className="row">
-              {filteredCountries.map(category => {
+              {filteredCountries.map((category) => {
                 return this.renderCategory(category);
               })}
             </div>

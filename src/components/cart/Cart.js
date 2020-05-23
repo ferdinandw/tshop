@@ -65,8 +65,9 @@
 
 import React, { useEffect, useState }  from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom'
 import localforage from 'localforage';
+import {Link} from 'react-router-dom'
+
 import axios from 'axios';
 import Counter from './../reducer/Counter'
 
@@ -91,8 +92,8 @@ const Index = (props) => {
     const URL = "http://3.136.102.205/";
 
     return (
-        <div>
-            <h1>Your Cart</h1>
+        <div className="mt-5 pt-5 text-center">
+            <h1>Your Cart</h1><hr/>
             <div className="container">
                 {data.map( (item) => {
                     return (
@@ -101,10 +102,10 @@ const Index = (props) => {
                                 <div className="col-md-6">
                                     <img src={`${URL}${item.imageUrl}`} alt={item.name} style={{height : "200px"}} />
                                 </div>
-                                <div className="col-md-6">
-                                    <h2>Nama : {item.name}</h2>
-                                    <h3>Price : Rp {item.price}</h3>
-                                    <Counter/>
+                                <div className="col-md-6 text-left">
+                                    <h4>Nama : {item.name}</h4>
+                                    <h6>Price : Rp {item.price}</h6>
+                                    {/* <Counter/> */}
                                 </div>
                             </div>
                             
@@ -112,7 +113,7 @@ const Index = (props) => {
                     )
                 })}
                 <div className="d-flex justify-content-end">
-                    <Link className="btn btn-primary" onClick={checkout} to="/checkout">Checkout</Link>
+                    <Link className="btn btn-primary" to="/checkout">Checkout</Link>
                 </div>
             </div>
         </div>

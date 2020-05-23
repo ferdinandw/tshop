@@ -1,31 +1,31 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "./components/navbar/Navbar";
-// import Searches from './components/searchFilter/Searches'
-import Carousel from "./components/carousel/Carousel";
-import Cart from "./components/cart/Cart";
-import Detail from "./components/detail/detail";
-import Footer from "./components/footer/Footer";
-import ItemSell from "./components/ItemSelling/Sell";
-import Login from "./components/login/Login2";
-import MiniCarousel from "./components/carousel/MiniCarousel";
-import Register from "./components/register/Register";
-import Tabel from './components/form/Form';
-import Checkout from './components/checkout/Checkout'
-import ScrollTop from "./components/scrollTop";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/authToken";
-import store from "./store/store";
-import { setCurrentUser, logoutUser } from "./components/actioncreators/auth";
-import { Provider } from "react-redux";
+import { setCurrentUser, logoutUser } from "./action/auth";
+import ScrollTop from "./components/scrollTop";
 import localforage from "localforage";
+import { Provider } from "react-redux";
+import store from "./store/store";
 import PrivateRoute from "./config/privateRoute";
-
-// import TesSearch from "./components/searchFilter/TesSearch";
-
-import Item from "./components/reducer/item";
-import { Tab } from "react-bootstrap";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Signin from "./pages/SignIn";
+import Signup from "./pages/Signup";
+import Cart from "./components/cart/Cart";
+import Detail from "./components/detail/Detail";
+import Footer from "./components/Footer";
+import ItemSell from "./components/ItemSelling/Sell";
+import Tabel from "./components/form/Form";
+import ProductList from "./components/productDetails";
+import NavMenu from "./components/Navbar.js";
+// import { Tab } from "react-bootstrap";
+// import Carousel from "./components/carousel/Carousel";
+// import Login from "./components/login/Login2";
+// import MiniCarousel from "./components/carousel/MiniCarousel";
+// import Register from "./components/register/Register";
+// import NavMenu from './components/navbar/navbar'
+// import signIn from "./components/signIn";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -56,50 +56,32 @@ try {
   console.error("belum bisa pakai localforage");
 }
 
-// const storage = createStore(cartReducer , applyMiddleware(thunk));
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
           <ScrollTop>
             <div>
-              <Navbar />
+              <NavMenu />
             </div>
             <div>
-            <Switch>
-              {/* <TesSearch /> */}
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/checkout">
-                {/* <Checkout/> */}
-                <Tabel/>
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-              <Route path="/seller">
-                <ItemSell />
-              </Route>
-              <Route path="/cart">
-                <Cart />
-              </Route>
-              <Route path="/item/:id">
-                <Detail />
-              </Route>
-              <Route path="/">
-                <Carousel />
-                <MiniCarousel />
-                <Item />
-              </Route>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/signin" component={Signin} />
+              <Route exact path="/about" component={About} />
+              <Route path="/item/:id" component={Detail} />
+              <Route path="/cart" component={Cart} />
+              <Route path="/checkout" component={Tabel} />
+              <Route path="/sell" component={ItemSell} />
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/details/detail/:id"
+                  component={ProductList}
+                />
               </Switch>
             </div>
-
-            <Switch>
-              {/* <PrivateRoute exact path="/details/detail/:id" component={Item} /> */}
-            </Switch>
-
             <Footer />
           </ScrollTop>
         </Router>
@@ -107,5 +89,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

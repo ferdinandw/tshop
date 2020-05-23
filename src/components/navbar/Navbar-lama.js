@@ -15,17 +15,17 @@ const Navbar2 = () => {
         />
       </Link>
       <span>
-      <form className="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Category"
-          aria-label="Search"
-        />
-        <ButtonContainer class="btn btn-secondary my-2 my-sm-0" type="submit">
-          <i class="fas fa-search"></i>
-        </ButtonContainer>
-      </form>
+        <form className="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Category"
+            aria-label="Search"
+          />
+          <ButtonContainer class="btn btn-secondary my-2 my-sm-0" type="submit">
+            <i class="fas fa-search"></i>
+          </ButtonContainer>
+        </form>
       </span>
       <div>
         <ButtonContainer className="mr-4">
@@ -38,7 +38,9 @@ const Navbar2 = () => {
             <FaDollarSign />
           </Link>
         </ButtonContainer>
-        <Link className="btn btn-primary" to="/login">Login</Link>
+        <Link className="btn btn-primary" to="/login">
+          Login
+        </Link>
       </div>
     </NavWrapper>
   );
